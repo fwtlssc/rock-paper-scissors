@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        let firstPlayerLabel = "Computer"
+        let secondPlayerLabel = "Player"
+        let choices = ["rock","paper","scissors"];
+        let winAgainst = {
+            "rock": "scissors",
+            "paper": "rock",
+            "scissors": "paper"
+        }
+        let computerPlay = () =>  choices[Math.floor(4* Math.random())];
+
+        let determineWinner = (firstPlayer, secondPlayer) => {
+            if(!checkInChoices(firstPlayer)){
+                throw new Error("choice one is not from the available choices")
+            }
+            if(!checkInChoices(secondPlayer)){
+                throw new Error("choice two is not from the available choices")
+            }
+            if(firstPlayer === secondPlayer){
+                return 0;
+            }else if(winAgainst[firstPlayer] === secondPlayer){
+                return 1;
+            }
+            return 2;
+        }
+
+        let checkInChoices = choice => {
+            for(let i=0;i<choices.length;i++){
+                if(choices[i] === choice) return true;
+            }
+            return false;
+        }
+
+        let playRound  = (firstPlayerChoice, secondPlayerChoice) => {
+            let winner = determineWinner(firstPlayerChoice,secondPlayerChoice);
+            console.log(firstPlayerLabel + " played : " + firstPlayerChoice)
+            console.log(secondPlayerLabel + " played : " + secondPlayerChoice)
+            let winnerLabel;
+            if(winner === 0){
+                winnerLabel = "tie";
+            }else if(winner === 1){
+                winnerLabel = firstPlayerLabel
+            }else if(winner === 2){
+                winnerLabel = secondPlayerLabel
+            }
+            console.log("The winner is "+ winnerLabel);
+        }
+
+        let game = () => {
+            for(let i=0;i<5;i++){
+                console.log("#### Round "+ (i+1) + " ####")
+                let firstPlayerChoice = computerPlay();
+                let secondPlayerChoice = prompt("Enter your choice (rock, paper, scissors)");
+                while(!secondPlayerChoice || !checkInChoices(secondPlayerChoice.toLowerCase())){
+                    console.error("Please enter one of the available choices");
+                    secondPlayerChoice = prompt("Enter your choice (rock, paper, scissors)");
+                }
+                playRound(firstPlayerChoice.toLowerCase(),secondPlayerChoice.toLowerCase())
+            }
+        }
+        game();
+    </script>
+</body>
+</html>
