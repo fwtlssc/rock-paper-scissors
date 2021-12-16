@@ -1,0 +1,149 @@
+@import url(reset.css);
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: Verdana, sans-serif;
+  color: #fff;
+}
+
+p {
+  font-size: 1.2rem;
+}
+
+button {
+  color: #fff;
+}
+
+main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.background {
+  flex-grow: 1;
+  width: 70%;
+  background-color: #85FFBD;
+  background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.background .player-area {
+  padding: 2rem 0;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+.background .player-area .label {
+  padding: 1.5rem;
+  font-weight: bold;
+  margin-right: auto;
+  text-align: center;
+}
+.background .player-area .score {
+  padding: 1.5rem;
+  margin-left: auto;
+}
+.background .player-area .choices {
+  display: flex;
+  gap: 25px;
+}
+@media (max-width: 1100px) {
+  .background .player-area .choices {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+.background .player-area .choice {
+  background: #B2FEFA;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #0ED2F7, #B2FEFA);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #0ED2F7, #B2FEFA);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  width: 150px;
+  padding: 1.5rem 2rem;
+  color: #d84242;
+  text-align: center;
+  text-transform: capitalize;
+  border: none;
+  border-radius: 0.25rem;
+}
+.background .player-area .choice:hover {
+  background: #B2FEFA;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #0ED2F7, #B2FEFA);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #0ED2F7, #B2FEFA);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+@media (max-width: 1100px) {
+  .background .player-area .choice {
+    padding: 0.5rem 0.25rem;
+    width: 100px;
+  }
+}
+.background .player-area button.choice:hover {
+  box-shadow: 0 0 15px yellow;
+}
+.background .results-area {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+.background .results-area .result {
+  grid-column-start: 2;
+}
+.background .results-area button {
+  background: #34e89e;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #0f3443, #34e89e);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #0f3443, #34e89e);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  margin-left: auto;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.25rem;
+  display: none;
+}
+.background .results-area button:hover {
+  background: #34e89e;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #0f3443, #34e89e);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #0f3443, #34e89e);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.bg-brown, .background .player-area {
+  background: #603813;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #b29f94, #603813);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #b29f94, #603813);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.bg-orange, .background .player-area .label {
+  background: #F7971E;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #FFD200, #F7971E);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #FFD200, #F7971E);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.spacer-xl {
+  margin-top: 5rem;
+}
+
+/*# sourceMappingURL=styles.css.map */

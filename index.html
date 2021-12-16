@@ -5,30 +5,81 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    
+    <div class="spacer-xl"></div>
+    <main>
+        <div class="background">
+            <div class="player-area">
+                <p id="first-player-label" class="label">
+                    
+                </p>
+                <div class="choices first-player-choices">
+                    <p class="choice">
+                        Rock
+                    </p>
+                </div>
+                <p class="score">
+                    Score: <span id="first-player-score"></span>
+                </p>
+            </div>
+            <div class="results-area">
+                <p class="result"></p>
+                <button class="btn-replay">
+                    Play again
+                </button>
+            </div>
+            <div class="player-area">
+                <p id="second-player-label" class="label">
+                    
+                </p>
+                <div class="choices second-player-choices">
+                    <button class="choice">
+                        
+                    </button>
+                    <button class="choice">
+                        
+                    </button>
+                    <button class="choice">
+                        
+                    </button>
+                </div>
+                <p class="score">
+                    Score: <span id="second-player-score"></span>
+                </p>
+            </div>
+        </div>
+    </main>
+    <div class="spacer-xl"></div>
     <script>
-        let firstPlayerLabel = "Computer"
-        let secondPlayerLabel = "Player"
+        let firstPlayer = {
+            label: "Computer",
+            score: 0
+        }
+        let secondPlayer = {
+            label: "Player",
+            score: 0
+        }
         let choices = ["rock","paper","scissors"];
         let winAgainst = {
             "rock": "scissors",
             "paper": "rock",
             "scissors": "paper"
         }
+        let winnerLabel;
         let computerPlay = () =>  choices[Math.floor(3* Math.random())];
 
-        let determineWinner = (firstPlayer, secondPlayer) => {
-            if(!checkInChoices(firstPlayer)){
+        let determineWinner = (firstPlayerChoice, secondPlayerChoice) => {
+            if(!checkInChoices(firstPlayerChoice)){
                 throw new Error("choice one is not from the available choices")
             }
-            if(!checkInChoices(secondPlayer)){
+            if(!checkInChoices(secondPlayerChoice)){
                 throw new Error("choice two is not from the available choices")
             }
-            if(firstPlayer === secondPlayer){
+            if(firstPlayerChoice === secondPlayerChoice){
                 return 0;
-            }else if(winAgainst[firstPlayer] === secondPlayer){
+            }else if(winAgainst[firstPlayerChoice] === secondPlayerChoice){
                 return 1;
             }
             return 2;
@@ -43,32 +94,87 @@
 
         let playRound  = (firstPlayerChoice, secondPlayerChoice) => {
             let winner = determineWinner(firstPlayerChoice,secondPlayerChoice);
-            console.log(firstPlayerLabel + " played : " + firstPlayerChoice)
-            console.log(secondPlayerLabel + " played : " + secondPlayerChoice)
-            let winnerLabel;
             if(winner === 0){
-                winnerLabel = "tie";
+                winnerLabel = "Tie";
             }else if(winner === 1){
-                winnerLabel = firstPlayerLabel
+                winnerLabel = firstPlayer["label"]
+                firstPlayer.score++;
             }else if(winner === 2){
-                winnerLabel = secondPlayerLabel
-            }
-            console.log("The winner is "+ winnerLabel);
-        }
-
-        let game = () => {
-            for(let i=0;i<5;i++){
-                console.log("#### Round "+ (i+1) + " ####")
-                let firstPlayerChoice = computerPlay();
-                let secondPlayerChoice = prompt("Enter your choice (rock, paper, scissors)");
-                while(!secondPlayerChoice || !checkInChoices(secondPlayerChoice.toLowerCase())){
-                    console.error("Please enter one of the available choices");
-                    secondPlayerChoice = prompt("Enter your choice (rock, paper, scissors)");
-                }
-                playRound(firstPlayerChoice.toLowerCase(),secondPlayerChoice.toLowerCase())
+                winnerLabel = secondPlayer["label"]
+                secondPlayer.score++;
             }
         }
-        game();
+        let showResult = () => {
+            let text = winnerLabel;
+            if(winnerLabel != "" && winnerLabel != "Tie"){
+                text += " is the winner";
+            }
+            document.querySelector(".result").innerText = text;
+        }
+        
+        let play = (secondPlayerChoice) => {
+            let firstPlayerChoice = computerPlay();
+            playRound(firstPlayerChoice.toLowerCase(),secondPlayerChoice.toLowerCase());
+            showComputerChoice(firstPlayerChoice);
+            showResult();
+            updateScores();
+            let btnReplay = document.querySelector(".btn-replay");
+            if(firstPlayer.score == 5){
+                    btnReplay.innerText = "You are such a Looooser";
+                    gameEnd()
+            }else if(secondPlayer.score == 5){
+                btnReplay.innerText = "GG";
+                gameEnd()
+            }
+        }
+        let gameEnd = () =>{
+            document.querySelector(".btn-replay").style.setProperty("display","inline-block");
+            let playerChoices = document.querySelectorAll(".second-player-choices .choice");
+            playerChoices.forEach( function(item){
+                item.setAttribute("disabled","disabled");
+            })
+        }
+        let init = () => {
+            document.querySelector("#first-player-label").innerText = firstPlayer.label;
+            document.querySelector("#second-player-label").innerText = secondPlayer.label;
+            updateScores();
+            initChoices();
+            let playerChoices = document.querySelectorAll(".second-player-choices .choice");
+            playerChoices.forEach( function(item){
+                item.addEventListener("click",(e) => {
+                    play(e.target.innerText);
+                });
+            })
+            document.querySelector(".btn-replay").addEventListener("click",function(){
+                this.style.setProperty("display","none");
+                firstPlayer['score']=0;
+                secondPlayer['score']=0;
+                updateScores();
+                winnerLabel = "";
+                showResult();
+                let playerChoices = document.querySelectorAll(".second-player-choices .choice");
+                playerChoices.forEach( function(item){
+                    item.removeAttribute("disabled");
+                })
+            })
+            
+        }
+        let updateScores = () => {
+            document.querySelector("#first-player-score").innerText = firstPlayer.score;
+            document.querySelector("#second-player-score").innerText = secondPlayer.score;
+        }
+        let initChoices = () => {
+            let playerChoices = document.querySelectorAll(".second-player-choices .choice");
+            let i =0;
+            playerChoices.forEach((item) => {
+                item.innerText = choices[i++];
+            })
+        }
+        let showComputerChoice = (choice) => {
+            document.querySelector(".first-player-choices .choice").innerText = choice;
+        }
+        init();
+        
     </script>
 </body>
 </html>
