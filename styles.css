@@ -9,6 +9,17 @@ body {
   min-height: 100vh;
   font-family: Verdana, sans-serif;
   color: #fff;
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#eaefb5+0,e1e9a0+100;Wax+Flat */
+  background: #eaefb5;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #eaefb5 0%, #e1e9a0 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #eaefb5 0%, #e1e9a0 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #eaefb5 0%, #e1e9a0 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#eaefb5", endColorstr="#e1e9a0",GradientType=0 );
+  /* IE6-9 */
 }
 
 p {
@@ -17,6 +28,8 @@ p {
 
 button {
   color: #fff;
+  font-family: inherit;
+  font-size: inherit;
 }
 
 main {
@@ -32,6 +45,7 @@ main {
   width: 70%;
   background-color: #85FFBD;
   background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);
+  border: 10px solid #b68d06;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -74,6 +88,7 @@ main {
   color: #d84242;
   text-align: center;
   text-transform: capitalize;
+  font-size: 1rem;
   border: none;
   border-radius: 0.25rem;
 }
@@ -99,8 +114,20 @@ main {
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
 }
+@media (max-width: 1100px) {
+  .background .results-area {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+}
 .background .results-area .result {
   grid-column-start: 2;
+  text-align: center;
+}
+@media (max-width: 1100px) {
+  .background .results-area .result {
+    grid-column-start: initial;
+  }
 }
 .background .results-area button {
   background: #34e89e;
@@ -114,6 +141,11 @@ main {
   border: none;
   border-radius: 0.25rem;
   display: none;
+}
+@media (max-width: 1100px) {
+  .background .results-area button {
+    margin-left: 0;
+  }
 }
 .background .results-area button:hover {
   background: #34e89e;
